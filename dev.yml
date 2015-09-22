@@ -1,0 +1,9 @@
+# Docker-Compose
+# App: Visual Paradigm License Server
+# Env: Development
+vpserver:
+    container_name: vpserver
+    build: .
+    restart: always
+    ports:
+        - "1999:1999"

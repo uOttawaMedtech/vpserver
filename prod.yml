@@ -1,0 +1,24 @@
+# Docker-Compose
+# App: Visual Paradigm License Server
+# Env: Production
+vpserver:
+    container_name: vpserver
+    image: https://github.com/uOttawaMedtech/vpserver.git
+    restart: always
+    hostname: vpserver
+    domainname: vpserver.med.uolocal
+    ports:
+        - "1999:1999"
+    volumes_from:
+        - vpserver-data
+    labels:
+        io.rancher.sidekicks: vpserver-data
+        io.rancher.scheduler.affinity:host_label: name=med-cdp-01
+
+vpserver-data:
+    container_name: vpserver-data
+    image: https://github.com/uOttawaMedtech/vpserver.git
+    hostname: vpserver-data
+    command: echo "Visual Paradigm License Server Data"
+    volumes:
+        - /opt/VPServer
