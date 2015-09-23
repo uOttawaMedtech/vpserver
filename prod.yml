@@ -2,8 +2,8 @@
 # App: Visual Paradigm License Server
 # Env: Production
 vpserver:
-    container_name: vpserver
-    image: https://github.com/uOttawaMedtech/vpserver.git
+    tty: true
+    image: jrarseneau/vpserver
     restart: always
     hostname: vpserver
     domainname: vpserver.med.uolocal
@@ -13,12 +13,15 @@ vpserver:
         - vpserver-data
     labels:
         io.rancher.sidekicks: vpserver-data
-        io.rancher.scheduler.affinity:host_label: name=med-cdp-01
+        io.rancher.scheduler.affinity:host_label: name=med-cdk-p01
+    stdin_open: true
 
 vpserver-data:
-    container_name: vpserver-data
-    image: https://github.com/uOttawaMedtech/vpserver.git
+    tty: true
+    image: jrarseneau/vpserver
     hostname: vpserver-data
-    command: echo "Visual Paradigm License Server Data"
+    command:
+        - cat
     volumes:
         - /opt/VPServer
+    stdin_open: true
